@@ -1,4 +1,6 @@
+pip install streamlit
 import streamlit as st
+
 
 a = 1
 b = 2
