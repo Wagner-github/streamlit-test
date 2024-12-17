@@ -61,9 +61,12 @@ st.set_page_config(page_title="Financial Analysis", layout="wide")
 with st.sidebar:
     st.title("Analise financière")
     #ticker = st.text_input("Enter a stock ticker (e.g. TTE.PA)", "TTE.PA")
-    ticker = st.selectbox("choisissez l'entreprise :", df["nom"].unique(), index=6)
+    entreprise = st.selectbox("choisissez l'entreprise :", df["nom"].unique(), index=6)
     period = st.selectbox("Enter a time frame", ("1D", "5D", "1M", "6M", "YTD", "1Y", "5Y"), index=2)
     button = st.button("Entrer")
+
+#attribution du ticker de l'entreprise choisie
+ticker = df[df["nom"] == entreprise]["ticker"].values[0]
 
 # Format market cap and enterprise value into something readable
 def format_value(value):
@@ -81,9 +84,13 @@ def safe_format(value, fmt="{:.2f}", fallback="N/A"):
         return fallback
 
 
-# If Submit button is clicked
+
+
+
+
+
 if button:
-    if not ticker.strip():2
+    if not ticker.strip():
         st.error("Please provide a valid stock ticker.")
     else:
         try:
