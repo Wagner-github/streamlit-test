@@ -88,11 +88,8 @@ def safe_format(value, fmt="{:.2f}", fallback="N/A"):
 
 
 
-
 if button:
-    if not ticker.strip():
-        st.error("Please provide a valid stock ticker.")
-    else:
+    if ticker:
         try:
             with st.spinner('Please wait...'):
                 # Retrieve stock data
