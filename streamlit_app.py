@@ -5,8 +5,19 @@ import pandas as pd
 # Streamlit app details
 st.set_page_config(page_title="Financial Analysis", layout="wide")
 with st.sidebar:
-    st.title("Financial Analysis")
-    ticker = st.text_input("Enter a stock ticker (e.g. AAPL)", "AAPL")
+    st.title("Analise financière")
+    #ticker = st.text_input("Enter a stock ticker (e.g. TTE.PA)", "TTE.PA")
+    ticker = st.selectbox("choisissez l'entreprise :", 
+(
+"Accor", "Air Liquide", "Airbus", "ArcelorMittal", "Axa", "BNP Paribas", 
+ "Bouygues", "Capgemini", "Carrefour", "Crédit Agricole", "Danone", 
+ "Dassault Systèmes", "Edenred", "Engie", "EssilorLuxottica", "Eurofins Scientific", 
+ "Hermès", "Kering", "L'Oréal", "Legrand", "LVMH", "Michelin", "Orange", 
+ "Pernod Ricard", "Publicis", "Renault", "Safran", "Saint-Gobain", "Sanofi", 
+ "Schneider Electric", "Société Générale", "Stellantis", "STMicroelectronics", 
+ "Teleperformance", "Thales", "TotalEnergies", "Unibail-Rodamco-Westfield", 
+ "Veolia", "Vinci", "Vivendi"
+), index=0)
     period = st.selectbox("Enter a time frame", ("1D", "5D", "1M", "6M", "YTD", "1Y", "5Y"), index=2)
     button = st.button("Submit")
 
