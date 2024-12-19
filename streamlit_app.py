@@ -128,7 +128,7 @@ if button:
                 # Calcul des années en fonction de la période
                 if period == "MAX":
                     # Exemple : données à partir de 1980
-                    available_years = list(range(start_year, current_year + 1))
+                    available_years = list(range(1980, current_year + 1))
                 elif period == "YTD":
                     # Seulement l'année en cours
                     available_years = [current_year]
