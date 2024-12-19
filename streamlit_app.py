@@ -70,24 +70,38 @@ button2 = st.button("Entrer")
 #attribution du ticker de l'entreprise choisie
 ticker2 = df[df["nom"] == entreprise2]["ticker"].values[0]
 
-if button2: # Vue des infos de bases
-    if ticker2:
-        # Récupération des données historiques via yfinance
-        stock2 = yf.Ticker(ticker2)
-        history_data2 = stock2.history(period="max")  # Récupérer toutes les données disponibles
+if button2:
+    # Attribution du ticker
+    ticker2 = df[df["nom"] == entreprise2]["ticker"].values[0]
 
-        if not history_data2.empty:
-        # Extraction des dates disponibles
-            available_dates = history_data2.index.strftime("%Y-%m-%d").tolist()
+    # Récupération des données historiques via yfinance
+    stock2 = yf.Ticker(ticker2)
+    history_data2 = stock2.history(period="max")  # Récupérer toutes les données disponibles
 
-        # Sélection de la date
-            selected_date = st.selectbox("Choisissez une date :", available_dates)
+    if not history_data2.empty:
+        # Extraction des années, mois et jours disponibles
+        history_data2.index = pd.to_datetime(history_data2.index)  # S'assurer que l'index est de type datetime
+        available_years = history_data2.index.year.unique().tolist()
+        selected_year = st.selectbox("Choisissez une année :", available_years)
 
-        # Affichage des informations pour la date choisie
-            if st.button("Afficher les données"):
+        # Filtrer les données pour l'année choisie
+        year_filtered_data = history_data2[history_data2.index.year == selected_year]
+        available_months = year_filtered_data.index.month.unique().tolist()
+        selected_month = st.selectbox("Choisissez un mois :", available_months)
+
+        # Filtrer les données pour le mois choisi
+        month_filtered_data = year_filtered_data[year_filtered_data.index.month == selected_month]
+        available_days = month_filtered_data.index.day.unique().tolist()
+        selected_day = st.selectbox("Choisissez un jour :", available_days)
+
+        # Combiner les sélections pour obtenir la date finale
+        if st.button("Afficher les données"):
+            selected_date = pd.Timestamp(year=selected_year, month=selected_month, day=selected_day)
+            if selected_date in history_data2.index:
                 selected_data = history_data2.loc[selected_date]
-                st.write(f"Données pour {selected_date} :")
+                st.write(f"Données pour {selected_date.strftime('%Y-%m-%d')} :")
                 st.dataframe(selected_data)
-        else:
-            st.error("Aucune donnée historique disponible pour cette entreprise.")
-
+            else:
+                st.error("Aucune donnée disponible pour cette date.")
+    else:
+        st.error("Aucune donnée historique disponible pour cette entreprise.")
