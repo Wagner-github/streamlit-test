@@ -2,6 +2,8 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 from io import StringIO
+from datetime import datetime, timedelta
+
 
 
 # Définir la chaîne de caractères contenant les données CSV
