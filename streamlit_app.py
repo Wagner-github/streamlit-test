@@ -84,7 +84,7 @@ if button2:
 
         # Convertir l'index en format 'YYYY-MM-DD' sans heure et fuseau horaire
         history_data2.index = history_data2.index.date  # Cela garde seulement la date (année-mois-jour
-        if user_date /=0:
+        if user_date =/=0:
             try:
                 if user_date in history_data2.index:
                     st.write(f"Données pour {selected_date.strftime('%Y-%m-%d')} :")
