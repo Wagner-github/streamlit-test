@@ -65,7 +65,7 @@ st.set_page_config(page_title="Financial Analysis", layout="wide")
 st.title("Analise financière")
 
 st.subheader("Vision globale")
-entreprise = st.selectbox("Choisissez l'entreprise :", df_chart["nom"].unique(), index=6, key="selectbox_1")
+entreprise = st.selectbox("Choisissez l'entreprise :", df_chart["nom"].unique(), index=35, key="selectbox_1")
 period = st.selectbox("Choisissez la période :", ("1D", "5D", "1M", "6M", "YTD", "1Y", "5Y", "MAX"), index=7, key="selectbox_2")
 
 # Analyse fine avec chat gpt
