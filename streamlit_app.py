@@ -85,9 +85,6 @@ if button2:
         # Convertir l'index en format 'YYYY-MM-DD' sans heure et fuseau horaire
         history_data2.index = history_data2.index.date  # Cela garde seulement la date (année-mois-jour)
 
-        # Champ de texte pour saisir la date au format YYYY-MM-DD
-        user_date = st.text_input("Entrez une date (format: YYYY-MM-DD) :", "")
-
         # Vérifier si la date est saisie et existe dans les données
         if user_date:
             try:
