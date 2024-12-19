@@ -67,14 +67,6 @@ st.title("Analise financière")
 entreprise2 = st.selectbox("choisissez l'entreprise :", df["nom"].unique(), index=6)
 button2 = st.button("Entrer")  
 
-# Initialiser les valeurs dans session_state si elles n'existent pas
-if 'selected_year' not in st.session_state:
-    st.session_state.selected_year = None
-if 'selected_month' not in st.session_state:
-    st.session_state.selected_month = None
-if 'selected_day' not in st.session_state:
-    st.session_state.selected_day = None
-
 if button2:
     # Attribution du ticker
     ticker2 = df[df["nom"] == entreprise2]["ticker"].values[0]
@@ -84,38 +76,16 @@ if button2:
     history_data2 = stock2.history(period="max")  # Récupérer toutes les données disponibles
 
     if not history_data2.empty:
-        # Extraction des années, mois et jours disponibles
-        history_data2.index = pd.to_datetime(history_data2.index)  # S'assurer que l'index est de type datetime
-        available_years = history_data2.index.year.unique().tolist()
-        
-        # Sélection de l'année, si elle existe dans session_state, utiliser cette valeur
-        selected_year = st.selectbox("Choisissez une année :", available_years, index=available_years.index(st.session_state.selected_year) if st.session_state.selected_year else 0)
-        st.session_state.selected_year = selected_year  # Sauvegarder l'année sélectionnée dans session_state
+        # Extraction des dates disponibles
+        available_dates = history_data2.index.strftime("%Y-%m-%d").tolist()
 
-        # Filtrer les données pour l'année choisie
-        year_filtered_data = history_data2[history_data2.index.year == selected_year]
-        available_months = year_filtered_data.index.month.unique().tolist()
+        # Sélection de la date
+        selected_date = st.selectbox("Choisissez une date :", available_dates)
 
-        # Sélection du mois
-        selected_month = st.selectbox("Choisissez un mois :", available_months, index=available_months.index(st.session_state.selected_month) if st.session_state.selected_month else 0)
-        st.session_state.selected_month = selected_month  # Sauvegarder le mois sélectionné dans session_state
-
-        # Filtrer les données pour le mois choisi
-        month_filtered_data = year_filtered_data[year_filtered_data.index.month == selected_month]
-        available_days = month_filtered_data.index.day.unique().tolist()
-
-        # Sélection du jour
-        selected_day = st.selectbox("Choisissez un jour :", available_days, index=available_days.index(st.session_state.selected_day) if st.session_state.selected_day else 0)
-        st.session_state.selected_day = selected_day  # Sauvegarder le jour sélectionné dans session_state
-
-        # Combiner les sélections pour obtenir la date finale
+        # Affichage des informations pour la date choisie
         if st.button("Afficher les données"):
-            selected_date = pd.Timestamp(year=selected_year, month=selected_month, day=selected_day)
-            if selected_date in history_data2.index:
-                selected_data = history_data2.loc[selected_date]
-                st.write(f"Données pour {selected_date.strftime('%Y-%m-%d')} :")
-                st.dataframe(selected_data)
-            else:
-                st.error("Aucune donnée disponible pour cette date.")
+            selected_data = history_data2.loc[selected_date]
+            st.write(f"Données pour {selected_date} :")
+            st.dataframe(selected_data)
     else:
         st.error("Aucune donnée historique disponible pour cette entreprise.")
