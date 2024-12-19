@@ -72,11 +72,12 @@ period = st.selectbox("Choisissez la période :", ("1D", "5D", "1M", "6M", "YTD"
 current_date = datetime.now().date()
 entreprise2 = st.selectbox("Choisissez l'entreprise pour l'analyse fine :", df_analyse["nom"].unique(), index=6, key="selectbox_3")
 user_date = st.text_input("Entrez une date (format: YYYY-MM-DD) :", "2024-12-09")
-button2 = st.button("Entrer", key="button2")  
 button = st.button("Entrer", key="button1")  
 
 #attribution du ticker de l'entreprise choisie
 ticker = df_chart[df_chart["nom"] == entreprise]["ticker"].values[0]
+ticker2 = df_analyse[df_analyse["nom"] == entreprise2]["ticker"].values[0]
+
 
 # Format market cap and enterprise value into something readable
 def format_value(value):
@@ -168,7 +169,6 @@ if button: # Vue des infos de bases
                 df = pd.DataFrame(biz_metrics[1:], columns=biz_metrics[0]).astype(str)
                 col3.dataframe(df, width=400, hide_index=True)
              
- ticker2 = df_analyse[df_analyse["nom"] == entreprise2]["ticker"].values[0]
 
     # Récupération des données historiques via yfinance
     stock2 = yf.Ticker(ticker2)
