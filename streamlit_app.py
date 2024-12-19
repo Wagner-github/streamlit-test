@@ -65,8 +65,8 @@ st.title("Analise financière")
  #ticker = st.text_input("Enter a stock ticker (e.g. TTE.PA)", "TTE.PA")
   #ticker = st.text_input("Enter a stock ticker (e.g. TTE.PA)", "TTE.PA")
 
-entreprise = st.selectbox("choisissez l'entreprise :", df["nom"].unique(), index=6)
-period = st.selectbox("Choisissez la periode :", ("1D", "5D", "1M", "6M", "YTD", "1Y", "5Y", "MAX"), index=7)
+entreprise = st.selectbox("Choisissez l'entreprise :", df["nom"].unique(), index=6, key="selectbox_1")
+period = st.selectbox("Choisissez la période :", ("1D", "5D", "1M", "6M", "YTD", "1Y", "5Y", "MAX"), index=7, key="selectbox_2")
 button = st.button("Entrer")  
 
 #attribution du ticker de l'entreprise choisie
@@ -167,7 +167,7 @@ if button: # Vue des infos de bases
 
 # Analyse fine avec chat gpt
 current_date = datetime.now().date()
-entreprise2 = st.selectbox("choisissez l'entreprise :", df["nom"].unique(), index=6)
+entreprise2 = st.selectbox("Choisissez l'entreprise pour l'analyse fine :", df["nom"].unique(), index=6, key="selectbox_3")
 user_date = st.text_input("Entrez une date (format: YYYY-MM-DD) :", "2024-12-09")
 button2 = st.button("Entrer")  
 
