@@ -91,7 +91,7 @@ if button2:
                     selected_data = history_data2.loc[selected_date]
                     st.write(f"Données pour {selected_date.strftime('%Y-%m-%d')} :")
                     st.write(selected_data)
-                 else:
+                else:
                     st.error("La date saisie n'est pas présente dans les données.")
             except ValueError:
                 st.error("Le format de la date est incorrect. Veuillez entrer une date au format YYYY-MM-DD.")
