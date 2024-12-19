@@ -55,7 +55,7 @@ Stellantis,STLAP.PA
 # Utiliser StringIO pour convertir la chaîne en un fichier-like object
 data_io = StringIO(data)
 
-# Lire les données avec Pandas
+# Lire les données avec Pandasd
 df_chart = pd.read_csv(data_io)
 
 
@@ -79,7 +79,6 @@ ticker = df_chart[df_chart["nom"] == entreprise]["ticker"].values[0]
 
 # Analyse fine avec chat gpt
 current_date = datetime.now().date()
-user_date = st.text_input("Entrez une date (format: YYYY-MM-DD) :", "2024-12-09")
 
 
 # Format market cap and enterprise value into something readable
