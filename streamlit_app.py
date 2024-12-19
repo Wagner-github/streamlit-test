@@ -68,7 +68,7 @@ entreprise2 = st.selectbox("choisissez l'entreprise :", df["nom"].unique(), inde
 button2 = st.button("Entrer")  
 
 #attribution du ticker de l'entreprise choisie
-ticker2 = df[df["nom"] == entreprise]["ticker"].values[0]
+ticker2 = df[df["nom"] == entreprise2]["ticker"].values[0]
 
 if button2: # Vue des infos de bases
     if ticker2:
