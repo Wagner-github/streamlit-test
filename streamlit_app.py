@@ -1,4 +1,3 @@
-
 import streamlit as st
 import yfinance as yf
 import pandas as pd
@@ -81,7 +80,6 @@ ticker = df_chart[df_chart["nom"] == entreprise]["ticker"].values[0]
 # Analyse fine avec chat gpt
 current_date = datetime.now().date()
 
-
 # Format market cap and enterprise value into something readable
 def format_value(value):
     suffixes = ["", "K", "M", "Md"]
@@ -96,11 +94,6 @@ def safe_format(value, fmt="{:.2f}", fallback="N/A"):
         return fmt.format(value) if value is not None else fallback
     except (ValueError, TypeError):
         return fallback
-
-
-
-
-
 
 if button: # Vue des infos de bases
     if ticker:
