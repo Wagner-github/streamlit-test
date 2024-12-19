@@ -73,7 +73,7 @@ st.subheader("Analyse fine avec ChatGPT")
 st.text("Pour lancer l'analyse fine, merci de saisir une date, sinon, laisser le cartouche vide et appuyer sur le bouton 'Entrer'.")
 current_date = datetime.now().date()
 user_date = st.text_input("Entrez une date (format: YYYY-MM-DD) :", "2024-12-09")
-button = st.button("Entrer", key="button1")  
+button = st.button("Entrer", key="button1")
 
 #attribution du ticker de l'entreprise choisie
 ticker = df_chart[df_chart["nom"] == entreprise]["ticker"].values[0]
@@ -121,7 +121,7 @@ if button: # Vue des infos de bases
                     "YTD": ("ytd", "1mo"),
                     "1Y": ("1y", "1mo"),
                     "5Y": ("5y", "3mo"),
-                    "MAX": ("max", "1mo")	
+                    "MAX": ("max", "1mo")
                 }
                 selected_period, interval = period_map.get(period, ("1mo", "1d"))
                 history = stock.history(period=selected_period, interval=interval)
@@ -176,13 +176,14 @@ if button: # Vue des infos de bases
 
                 if not history_data2.empty:
                     # Afficher les données disponibles dans un format compréhensible
-                    st.write(f"Données disponibles pour {entreprise} ({ticker}) en date du {user_date}:")
 
                     # Convertir l'index en format 'YYYY-MM-DD' sans heure et fuseau horaire
                     history_data2.index = history_data2.index.date  # Cela garde seulement la date (année-mois-jour)
 
                     # Vérifier si la date est saisie et existe dans les données
                     if user_date:
+                        st.write(f"Données disponibles pour {entreprise} ({ticker}) en date du {user_date}:")
+
                         try:
                             selected_date = pd.to_datetime(user_date).date()  # Convertir la date saisie en datetime.date
                             if selected_date in history_data2.index:
@@ -199,6 +200,6 @@ if button: # Vue des infos de bases
                     st.exception(f"An error occurred: {e}")
 
 
-            
 
-  
+
+
