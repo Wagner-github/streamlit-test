@@ -66,7 +66,7 @@ st.title("Analise financière")
   #ticker = st.text_input("Enter a stock ticker (e.g. TTE.PA)", "TTE.PA")
 current_date = datetime.now().date()
 entreprise2 = st.selectbox("choisissez l'entreprise :", df["nom"].unique(), index=6)
-user_date = st.text_input("Entrez une date (format: YYYY-MM-DD) :", current_date)
+user_date = st.text_input("Entrez une date (format: YYYY-MM-DD) :", "2024-12-09")
 button2 = st.button("Entrer")  
 
 if button2:
