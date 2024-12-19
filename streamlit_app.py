@@ -62,7 +62,7 @@ st.set_page_config(page_title="Financial Analysis", layout="wide")
 st.title("Analise financière")
   #ticker = st.text_input("Enter a stock ticker (e.g. TTE.PA)", "TTE.PA")
 entreprise = st.selectbox("choisissez l'entreprise :", df["nom"].unique(), index=6)
-period = st.selectbox("Enter a time frame", ("1D", "5D", "1M", "6M", "YTD", "1Y", "5Y", "MAX"), index=7)
+period = st.selectbox("Choisissez la periode :", ("1D", "5D", "1M", "6M", "YTD", "1Y", "5Y", "MAX"), index=7)
 button = st.button("Entrer")  
 
 #attribution du ticker de l'entreprise choisie
@@ -107,7 +107,7 @@ if button:
                     "YTD": ("ytd", "1mo"),
                     "1Y": ("1y", "1mo"),
                     "5Y": ("5y", "3mo"),
-                    "MAX": ("max")	
+                    "MAX": ("max", "1mo")	
                 }
                 selected_period, interval = period_map.get(period, ("1mo", "1d"))
                 history = stock.history(period=selected_period, interval=interval)
@@ -117,6 +117,33 @@ if button:
 
                 col1, col2, col3 = st.columns(3)
 
+                # Selecteur pour boite de dialogie
+                # Année actuelle
+
+
+                current_year = datetime.now().year
+
+                # Calcul des années en fonction de la période
+                if period == "MAX":
+                    # Exemple : données à partir de 1980
+                    available_years = list(range(1980, current_year + 1))
+                elif period == "YTD":
+                    # Seulement l'année en cours
+                    available_years = [current_year]
+                else:
+                    # Période spécifique en jours
+                    days = periods[period]
+                    start_date = datetime.now() - timedelta(days=days)
+                    start_year = start_date.year
+                    available_years = list(range(start_year, current_year + 1))
+
+                # Sélection d'une année
+                year = st.selectbox("Choisissez l'année :", available_years)
+
+                # Affichage pour vérification
+                st.write(f"Période sélectionnée : {period}")
+                st.write(f"Années disponibles : {available_years}")
+                st.write(f"Année sélectionnée : {year}")
                 # Display stock information as a dataframe
                 stock_info = [
                     ("Stock Info", "Value"),
