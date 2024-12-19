@@ -67,9 +67,13 @@ st.title("Analise financière")
 entreprise2 = st.selectbox("choisissez l'entreprise :", df["nom"].unique(), index=6)
 button2 = st.button("Entrer")  
 
-#attribution du ticker de l'entreprise choisie
-ticker2 = df[df["nom"] == entreprise2]["ticker"].values[0]
-
+# Initialiser les valeurs dans session_state si elles n'existent pas
+if 'selected_year' not in st.session_state:
+    st.session_state.selected_year = None
+if 'selected_month' not in st.session_state:
+    st.session_state.selected_month = None
+if 'selected_day' not in st.session_state:
+    st.session_state.selected_day = None
 
 if button2:
     # Attribution du ticker
@@ -83,19 +87,26 @@ if button2:
         # Extraction des années, mois et jours disponibles
         history_data2.index = pd.to_datetime(history_data2.index)  # S'assurer que l'index est de type datetime
         available_years = history_data2.index.year.unique().tolist()
-        selected_year = st.selectbox("Choisissez une année :", available_years)
+        
+        # Sélection de l'année, si elle existe dans session_state, utiliser cette valeur
+        selected_year = st.selectbox("Choisissez une année :", available_years, index=available_years.index(st.session_state.selected_year) if st.session_state.selected_year else 0)
+        st.session_state.selected_year = selected_year  # Sauvegarder l'année sélectionnée dans session_state
 
         # Filtrer les données pour l'année choisie
         year_filtered_data = history_data2[history_data2.index.year == selected_year]
         available_months = year_filtered_data.index.month.unique().tolist()
-        selected_month = st.selectbox("Choisissez un mois :", available_months)
+
+        # Sélection du mois
+        selected_month = st.selectbox("Choisissez un mois :", available_months, index=available_months.index(st.session_state.selected_month) if st.session_state.selected_month else 0)
+        st.session_state.selected_month = selected_month  # Sauvegarder le mois sélectionné dans session_state
 
         # Filtrer les données pour le mois choisi
         month_filtered_data = year_filtered_data[year_filtered_data.index.month == selected_month]
         available_days = month_filtered_data.index.day.unique().tolist()
-        
-        # Utiliser un widget de type 'selectbox' avec un choix par défaut
-        selected_day = st.selectbox("Choisissez un jour :", available_days, index=0)
+
+        # Sélection du jour
+        selected_day = st.selectbox("Choisissez un jour :", available_days, index=available_days.index(st.session_state.selected_day) if st.session_state.selected_day else 0)
+        st.session_state.selected_day = selected_day  # Sauvegarder le jour sélectionné dans session_state
 
         # Combiner les sélections pour obtenir la date finale
         if st.button("Afficher les données"):
