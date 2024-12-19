@@ -1,3 +1,4 @@
+
 import streamlit as st
 import yfinance as yf
 import pandas as pd
@@ -77,6 +78,12 @@ button = st.button("Entrer", key="button1")
 #attribution du ticker de l'entreprise choisie
 ticker = df_chart[df_chart["nom"] == entreprise]["ticker"].values[0]
 ticker2 = df_analyse[df_analyse["nom"] == entreprise2]["ticker"].values[0]
+
+# Analyse fine avec chat gpt
+current_date = datetime.now().date()
+entreprise2 = st.selectbox("Choisissez l'entreprise pour l'analyse fine :", df_analyse["nom"].unique(), index=6, key="selectbox_3")
+user_date = st.text_input("Entrez une date (format: YYYY-MM-DD) :", "2024-12-09")
+button2 = st.button("Entrer", key="button2")
 
 
 # Format market cap and enterprise value into something readable
@@ -168,69 +175,33 @@ if button: # Vue des infos de bases
 
                 df = pd.DataFrame(biz_metrics[1:], columns=biz_metrics[0]).astype(str)
                 col3.dataframe(df, width=400, hide_index=True)
-             
-
-    # Récupération des données historiques via yfinance
-    stock2 = yf.Ticker(ticker2)
-    history_data2 = stock2.history(period="max")  # Récupérer toutes les données disponibles
-
-    if not history_data2.empty:
-        # Afficher les données disponibles dans un format compréhensible
-        st.write(f"Données disponibles pour {entreprise2} ({ticker2}) en date du {user_date}:")
-
-        # Convertir l'index en format 'YYYY-MM-DD' sans heure et fuseau horaire
-        history_data2.index = history_data2.index.date  # Cela garde seulement la date (année-mois-jour)
-
-        # Vérifier si la date est saisie et existe dans les données
-        if user_date:
-            try:
-                selected_date = pd.to_datetime(user_date).date()  # Convertir la date saisie en datetime.date
-                if selected_date in history_data2.index:
-                    selected_data = history_data2.loc[selected_date]
-                    st.write(f"Données pour {selected_date.strftime('%Y-%m-%d')} :")
-                    st.write(selected_data)
-                else:
-                    st.error("La date saisie n'est pas présente dans les données.")
-            except ValueError:
-                st.error("Le format de la date est incorrect. Veuillez entrer une date au format YYYY-MM-DD.")
-    else:
-        st.error("Aucune donnée historique disponible pour cette entreprise."
-
         except Exception as e:
-            st.exception(f"An error occurred: {e}")
+                    st.exception(f"An error occurred: {e}")
+        if ticker2:   
+            # Récupération des données historiques via yfinance
+            stock2 = yf.Ticker(ticker2)
+            history_data2 = stock2.history(period="max")  # Récupérer toutes les données disponibles
 
-# Analyse fine avec chat gpt
-current_date = datetime.now().date()
-entreprise2 = st.selectbox("Choisissez l'entreprise pour l'analyse fine :", df_analyse["nom"].unique(), index=6, key="selectbox_3")
-user_date = st.text_input("Entrez une date (format: YYYY-MM-DD) :", "2024-12-09")
-button2 = st.button("Entrer", key="button2")  
+            if not history_data2.empty:
+                # Afficher les données disponibles dans un format compréhensible
+                st.write(f"Données disponibles pour {entreprise2} ({ticker2}) en date du {user_date}:")
 
-if button2:
-    # Attribution du ticker
-    ticker2 = df_analyse[df_analyse["nom"] == entreprise2]["ticker"].values[0]
+                # Convertir l'index en format 'YYYY-MM-DD' sans heure et fuseau horaire
+                history_data2.index = history_data2.index.date  # Cela garde seulement la date (année-mois-jour)
 
-    # Récupération des données historiques via yfinance
-    stock2 = yf.Ticker(ticker2)
-    history_data2 = stock2.history(period="max")  # Récupérer toutes les données disponibles
+                # Vérifier si la date est saisie et existe dans les données
+                if user_date:
+                    try:
+                        selected_date = pd.to_datetime(user_date).date()  # Convertir la date saisie en datetime.date
+                        if selected_date in history_data2.index:
+                            selected_data = history_data2.loc[selected_date]
+                            st.write(f"Données pour {selected_date.strftime('%Y-%m-%d')} :")
+                            st.write(selected_data)
+                        else:
+                            st.error("La date saisie n'est pas présente dans les données.")
+                    except ValueError:
+                        st.error("Le format de la date est incorrect. Veuillez entrer une date au format YYYY-MM-DD.")
+            else:
+                st.error("Aucune donnée historique disponible pour cette entreprise.")
 
-    if not history_data2.empty:
-        # Afficher les données disponibles dans un format compréhensible
-        st.write(f"Données disponibles pour {entreprise2} ({ticker2}) en date du {user_date}:")
-
-        # Convertir l'index en format 'YYYY-MM-DD' sans heure et fuseau horaire
-        history_data2.index = history_data2.index.date  # Cela garde seulement la date (année-mois-jour)
-
-        # Vérifier si la date est saisie et existe dans les données
-        if user_date:
-            try:
-                selected_date = pd.to_datetime(user_date).date()  # Convertir la date saisie en datetime.date
-                if selected_date in history_data2.index:
-                    selected_data = history_data2.loc[selected_date]
-                    st.write(f"Données pour {selected_date.strftime('%Y-%m-%d')} :")
-                    st.write(selected_data)
-                else:
-                    st.error("La date saisie n'est pas présente dans les données.")
-            except ValueError:
-                st.error("Le format de la date est incorrect. Veuillez entrer une date au format YYYY-MM-DD.")
-    else:
-        st.error("Aucune donnée historique disponible pour cette entreprise.")
+  
