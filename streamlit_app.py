@@ -68,7 +68,7 @@ st.title("Analise financière")
 
 entreprise = st.selectbox("Choisissez l'entreprise :", df_chart["nom"].unique(), index=6, key="selectbox_1")
 period = st.selectbox("Choisissez la période :", ("1D", "5D", "1M", "6M", "YTD", "1Y", "5Y", "MAX"), index=7, key="selectbox_2")
-button = st.button("Entrer")  
+button = st.button("Entrer", key="button1")  
 
 #attribution du ticker de l'entreprise choisie
 ticker = df_chart[df_chart["nom"] == entreprise]["ticker"].values[0]
@@ -170,7 +170,7 @@ if button: # Vue des infos de bases
 current_date = datetime.now().date()
 entreprise2 = st.selectbox("Choisissez l'entreprise pour l'analyse fine :", df_analyse["nom"].unique(), index=6, key="selectbox_3")
 user_date = st.text_input("Entrez une date (format: YYYY-MM-DD) :", "2024-12-09")
-button2 = st.button("Entrer")  
+button2 = st.button("Entrer", key="button2")  
 
 if button2:
     # Attribution du ticker
