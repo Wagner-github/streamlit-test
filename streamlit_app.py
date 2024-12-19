@@ -10,46 +10,46 @@ from datetime import datetime, timedelta
 # Définir la chaîne de caractères contenant les données CSV
 data = """
 nom,ticker
-Credit Agricole,ACA.PA
-Teleperformance,TEP.PA
-Hermes,RMS.PA
-Safran,SAF.PA
-Air Liquide,AI.PA
-Carrefour,CA.PA
-TotalEnergies,TTE.PA
-L'oreal,OR.PA
 Accor Hotels,AC.PA
-Bouygues,EN.PA
-Sanofi,SAN.PA
+Air Liquide,AI.PA
+Airbus,AIR.PA
+Arcelor Mittal,MT.PA
 Axa,CS.PA
-Danone,BN.PA
-Pernod Ricard,RI.PA
-Lvmh,MC.PA
-Thales,HO.PA
-Kering,KER.PA
-EssilorLuxottica,EL.PA
-Schneider Electric,SU.PA
-Veolia Environ.,VIE.PA
-Saint Gobain,SGO.PA
+Bnp Paribas,BNP.PA
+Bouygues,EN.PA
 CapGemini,CAP.PA
+Carrefour,CA.PA
+Credit Agricole,ACA.PA
+Danone,BN.PA
+Dassault Systemes,DSY.PA
+Edenred,EDEN.PA
+Engie,ENGI.PA
+EssilorLuxottica,EL.PA
+Eurofins Scient.,ERF.PA
+Hermes,RMS.PA
+Kering,KER.PA
+L'oreal,OR.PA
+Legrand SA,LR.PA
+Lvmh,MC.PA
+Michelin,ML.PA
+Orange,ORA.PA
+Pernod Ricard,RI.PA
+Publicis Groupe,PUB.PA
+Renault,RNO.PA
+Safran,SAF.PA
+Saint Gobain,SGO.PA
+Sanofi,SAN.PA
+Schneider Electric,SU.PA
+Societe Generale,GLE.PA
+Stellantis,STLAP.PA
+Stmicroelectronics,STMPA.PA
+Teleperformance,TEP.PA
+Thales,HO.PA
+TotalEnergies,TTE.PA
+Unibail Rodamco Westfield,URW.PA
+Veolia Environ.,VIE.PA
 Vinci,DG.PA
 Vivendi,VIV.PA
-Publicis Groupe,PUB.PA
-Societe Generale,GLE.PA
-Bnp Paribas,BNP.PA
-Renault,RNO.PA
-Orange,ORA.PA
-Engie,ENGI.PA
-Legrand SA,LR.PA
-Edenred,EDEN.PA
-Unibail Rodamco Westfield,URW.PA
-Eurofins Scient.,ERF.PA
-Dassault Systemes,DSY.PA
-Michelin,ML.PA
-Arcelor Mittal,MT.PA
-Stmicroelectronics,STMPA.PA
-Airbus,AIR.PA
-Stellantis,STLAP.PA
 """
 
 # Utiliser StringIO pour convertir la chaîne en un fichier-like object
@@ -188,7 +188,6 @@ if button: # Vue des infos de bases
                             selected_date = pd.to_datetime(user_date).date()  # Convertir la date saisie en datetime.date
                             if selected_date in history_data2.index:
                                 selected_data = history_data2.loc[selected_date]
-                                st.write(f"Données pour {selected_date.strftime('%Y-%m-%d')} :")
                                 st.write(selected_data)
                             else:
                                 st.error("La date saisie n'est pas présente dans les données.")
