@@ -127,8 +127,20 @@ if button:
 
                 # Calcul des années en fonction de la période
                 if period == "MAX":
-                    # Exemple : données à partir de 1980
-                    available_years = list(range(1980, current_year + 1))
+                  try:
+                    history_data = stock.history(period="max")  # Récupérer toutes les données disponibles
+                    first_date = history_data.index.min()  # Date la plus ancienne disponible
+                    first_year = first_date.year  # Première année
+                    current_year = datetime.now().year  # Année actuelle
+                    
+                    # Générer la liste des années disponibles
+                    available_years = list(range(first_year, current_year + 1))
+                
+                    # Afficher les années disponibles dans un selectbox
+                    year = st.selectbox("Choisissez une année :", available_years)
+                    
+                    st.write(f"Données disponibles de {first_year} à {current_year}.")
+                    st.write(f"Année sélectionnée : {year}")
                 elif period == "YTD":
                     # Seulement l'année en cours
                     available_years = [current_year]
