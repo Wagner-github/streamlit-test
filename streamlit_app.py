@@ -141,6 +141,9 @@ if button:
                     
                     st.write(f"Données disponibles de {first_year} à {current_year}.")
                     st.write(f"Année sélectionnée : {year}")
+                except Exception as e:
+                    st.error(f"Impossible de récupérer les données pour le ticker {ticker}. Erreur : {e}")
+
                 elif period == "YTD":
                     # Seulement l'année en cours
                     available_years = [current_year]
