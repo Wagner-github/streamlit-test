@@ -1,3 +1,4 @@
+
 import streamlit as st
 import yfinance as yf
 import pandas as pd
@@ -192,8 +193,8 @@ if button: # Vue des infos de bases
                                 st.error("La date saisie n'est pas présente dans les données.")
                         except ValueError:
                             st.error("Le format de la date est incorrect. Veuillez entrer une date au format YYYY-MM-DD.")
-                else:
-                    st.error("Aucune donnée historique disponible pour cette entreprise.")
+                    else:
+                        st.text('Pas de date dans le cartouche "Entrez une date (format: YYYY-MM-DD)":')
         except Exception as e:
                     st.exception(f"An error occurred: {e}")
 
