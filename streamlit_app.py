@@ -69,6 +69,8 @@ entreprise2 = st.selectbox("choisissez l'entreprise :", df["nom"].unique(), inde
 user_date = st.text_input("Entrez une date (format: YYYY-MM-DD) :", current_date)
 button2 = st.button("Entrer")  
 
+
+
 if button2:
     # Attribution du ticker
     ticker2 = df[df["nom"] == entreprise2]["ticker"].values[0]
@@ -76,18 +78,29 @@ if button2:
     # Récupération des données historiques via yfinance
     stock2 = yf.Ticker(ticker2)
     history_data2 = stock2.history(period="max")  # Récupérer toutes les données disponibles
-    history_data2.index = history_data2.index.date
 
-    if user_date:
-        try:
-            selected_date = pd.to_datetime(user_date)  # Convertir la date saisie en datetime
-            if selected_date in history_data2.index:
-                selected_data = history_data2.loc[selected_date]
-                st.write(f"Données pour {selected_date.strftime('%Y-%m-%d')} :")
-                st.write(selected_data)
-            else:
-                st.error("La date saisie n'est pas présente dans les données.")
-        except ValueError:
-            st.error("Le format de la date est incorrect. Veuillez entrer une date au format YYYY-MM-DD.")
+    if not history_data2.empty:
+        # Afficher les données disponibles dans un format compréhensible
+        st.write(f"Données disponibles pour {entreprise2} ({ticker2}):")
+        st.write(history_data2.head())  # Affiche les premières lignes pour montrer les données
 
-    
+        # Convertir l'index en format 'YYYY-MM-DD' sans heure et fuseau horaire
+        history_data2.index = history_data2.index.date  # Cela garde seulement la date (année-mois-jour)
+
+        # Champ de texte pour saisir la date au format YYYY-MM-DD
+        user_date = st.text_input("Entrez une date (format: YYYY-MM-DD) :", "")
+
+        # Vérifier si la date est saisie et existe dans les données
+        if user_date:
+            try:
+                selected_date = pd.to_datetime(user_date).date()  # Convertir la date saisie en datetime.date
+                if selected_date in history_data2.index:
+                    selected_data = history_data2.loc[selected_date]
+                    st.write(f"Données pour {selected_date.strftime('%Y-%m-%d')} :")
+                    st.write(selected_data)
+                else:
+                    st.error("La date saisie n'est pas présente dans les données.")
+            except ValueError:
+                st.error("Le format de la date est incorrect. Veuillez entrer une date au format YYYY-MM-DD.")
+    else:
+        st.error("Aucune donnée historique disponible pour cette entreprise.")
