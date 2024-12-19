@@ -138,7 +138,8 @@ if button:
                 elif period == "YTD":
                     # Seulement l'année en cours
                    # available_years = [current_year]
-                    year = current_year
+                  year = st.selectbox("Année :", available_years)
+
                 else:
                     # Période spécifique en jours
                     days = periods[period]
@@ -148,8 +149,7 @@ if button:
 
 
                 # Affichage pour vérification
-                st.write(f"Période sélectionnée : {period}")
-                st.write(f"Années disponibles : {available_years}")
+
                 st.write(f"Année sélectionnée : {year}")
                 # Display stock information as a dataframe
                 stock_info = [
