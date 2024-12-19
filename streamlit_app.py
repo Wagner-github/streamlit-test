@@ -135,10 +135,10 @@ if button:
                 # Calcul des années en fonction de la période
                 if period == "MAX":
                       year = st.selectbox("Choisissez une année :", available_years)
-                elif period == "YTD":
+                elif period == "YTD" or period == "6M" :
                     # Seulement l'année en cours
                    # available_years = [current_year]
-                  year = st.selectbox("Année :", available_years)
+                  year = st.selectbox("Année :", current_year)
 
                 else:
                     # Période spécifique en jours
