@@ -76,7 +76,7 @@ if button2:
     # Récupération des données historiques via yfinance
     stock2 = yf.Ticker(ticker2)
     history_data2 = stock2.history(period="max")  # Récupérer toutes les données disponibles
-
+    history_data2.index = history_data2.index.date
 
     if user_date:
         try:
