@@ -70,6 +70,7 @@ button2 = st.button("Entrer")
 #attribution du ticker de l'entreprise choisie
 ticker2 = df[df["nom"] == entreprise2]["ticker"].values[0]
 
+
 if button2:
     # Attribution du ticker
     ticker2 = df[df["nom"] == entreprise2]["ticker"].values[0]
@@ -92,7 +93,9 @@ if button2:
         # Filtrer les données pour le mois choisi
         month_filtered_data = year_filtered_data[year_filtered_data.index.month == selected_month]
         available_days = month_filtered_data.index.day.unique().tolist()
-        selected_day = st.selectbox("Choisissez un jour :", available_days)
+        
+        # Utiliser un widget de type 'selectbox' avec un choix par défaut
+        selected_day = st.selectbox("Choisissez un jour :", available_days, index=0)
 
         # Combiner les sélections pour obtenir la date finale
         if st.button("Afficher les données"):
