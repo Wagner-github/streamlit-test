@@ -62,7 +62,7 @@ st.set_page_config(page_title="Financial Analysis", layout="wide")
 st.title("Analise financière")
   #ticker = st.text_input("Enter a stock ticker (e.g. TTE.PA)", "TTE.PA")
 entreprise = st.selectbox("choisissez l'entreprise :", df["nom"].unique(), index=6)
-period = st.selectbox("Enter a time frame", ("1D", "5D", "1M", "6M", "YTD", "1Y", "5Y"), index=2)
+period = st.selectbox("Enter a time frame", ("1D", "5D", "1M", "6M", "YTD", "1Y", "5Y", "MAX"), index=2)
 button = st.button("Entrer")  
 
 #attribution du ticker de l'entreprise choisie
