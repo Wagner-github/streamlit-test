@@ -89,7 +89,7 @@ if button2:
                 selected_date = pd.to_datetime(user_date).date()  # Convertir la date saisie en datetime.date
                 if selected_date in history_data2.index:
                     selected_data = history_data2.loc[selected_date]
-                    st.write(f"Données pour {selected_date.strftime('%Y-%m-%d')} :")
+                    #st.write(f"Données pour {selected_date.strftime('%Y-%m-%d')} :")
                     st.write(selected_data)
                 else:
                     st.error("La date saisie n'est pas présente dans les données.")
