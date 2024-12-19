@@ -70,7 +70,7 @@ period = st.selectbox("Choisissez la période :", ("1D", "5D", "1M", "6M", "YTD"
 
 # Analyse fine avec chat gpt
 st.subheader("Analyse fine avec ChatGPT")
-st.text("Pour lancer l'analyse fine, merci de saisir une date, sinon, laisser le cartouche vide et appuyer sur le bouton 'Entrer'.")
+st.text("Pour lancer l'analyse fine, merci de saisir une date, sinon, vider le cartouche et appuyer sur le bouton 'Entrer'.")
 current_date = datetime.now().date()
 user_date = st.text_input("Entrez une date (format: YYYY-MM-DD) :", "2024-12-09")
 button = st.button("Entrer", key="button1")
