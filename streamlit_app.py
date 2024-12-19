@@ -106,7 +106,7 @@ if button:
                     "6M": ("6mo", "1wk"),
                     "YTD": ("ytd", "1mo"),
                     "1Y": ("1y", "1mo"),
-                    "5Y": ("5y", "3mo"),
+                    "5Y": ("5y", "1mo"),
                 }
                 selected_period, interval = period_map.get(period, ("1mo", "1d"))
                 history = stock.history(period=selected_period, interval=interval)
