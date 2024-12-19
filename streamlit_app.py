@@ -174,7 +174,7 @@ button2 = st.button("Entrer", key="button2")
 
 if button2:
     # Attribution du ticker
-    ticker2 = df[df["nom"] == entreprise2]["ticker"].values[0]
+    ticker2 = df_analyse[df_analyse["nom"] == entreprise2]["ticker"].values[0]
 
     # Récupération des données historiques via yfinance
     stock2 = yf.Ticker(ticker2)
