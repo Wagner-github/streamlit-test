@@ -137,7 +137,8 @@ if button:
                       year = st.selectbox("Choisissez une année :", available_years)
                 elif period == "YTD":
                     # Seulement l'année en cours
-                    available_years = [current_year]
+                   # available_years = [current_year]
+                    year = current_year
                 else:
                     # Période spécifique en jours
                     days = periods[period]
