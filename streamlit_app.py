@@ -56,7 +56,7 @@ data_io = StringIO(data)
 
 # Lire les données avec Pandas
 df_chart = pd.read_csv(data_io)
-df_analyse = df_chart.copy
+df_analyse = df_chart.copy()
 
 
 # Streamlit app details
