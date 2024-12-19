@@ -119,66 +119,6 @@ if button:
 
                 col1, col2, col3 = st.columns(3)
 
-                # Selecteur pour boite de dialogie
-                # Année actuelle
-
-                try:
-                    # Récupérer toutes les données disponibles
-                    history_data = stock.history(period="max")
-                    first_date = history_data.index.min()  # Première date disponible
-                    first_year = first_date.year  # Première année
-                    current_date = datetime.now()
-                    current_year = current_date.year
-                    current_month = current_date.month
-                    current_day = current_date.day
-                
-                    # Générer les listes dynamiques
-                    available_years = list(range(first_year, current_year + 1))  # De la première année à aujourd'hui
-                
-                    # Calcul des valeurs dynamiques selon le `period`
-                    period = st.selectbox("Choisissez la période :", ["1D", "5D", "1M", "6M", "YTD", "1Y", "5Y", "MAX"], index=7)
-                
-                    if period == "MAX":
-                        # Pour MAX, sélectionner l'année
-                        year = st.selectbox("Choisissez une année :", available_years)
-                        # Générer les mois et jours pour l'année choisie
-                        if year == current_year:
-                            available_months = list(range(1, current_month + 1))
-                        else:
-                            available_months = list(range(1, 13))
-                
-                        month = st.selectbox("Choisissez un mois :", available_months)
-                
-                        if year == current_year and month == current_month:
-                            available_days = list(range(1, current_day + 1))
-                        else:
-                            available_days = list(range(1, 32))  # Supposons que les données ont des jours valides
-                        day = st.selectbox("Choisissez un jour :", available_days)
-                
-                    elif period == "YTD":
-                        # Pour YTD, fixer l'année à l'année en cours
-                        year = current_year
-                        st.write(f"Année : {year}")
-                        # Mois de janvier à aujourd'hui
-                        available_months = list(range(1, current_month + 1))
-                        month = st.selectbox("Choisissez un mois :", available_months)
-                        # Jours disponibles pour le mois actuel
-                        if month == current_month:
-                            available_days = list(range(1, current_day + 1))
-                        else:
-                            available_days = list(range(1, 32))
-                        day = st.selectbox("Choisissez un jour :", available_days)
-                
-                    else:
-                        st.write("Cette logique est spécifique à MAX ou YTD uniquement pour le moment.")
-                
-                    # Afficher les résultats sélectionnés
-                    st.write(f"Année sélectionnée : {year}")
-                    st.write(f"Mois sélectionné : {month}")
-                    st.write(f"Jour sélectionné : {day}")
-                
-                except Exception as e:
-                    st.error(f"Erreur lors de la récupération des données pour {ticker}: {e}")
                 # Display stock information as a dataframe
                 stock_info = [
                     ("Stock Info", "Value"),
