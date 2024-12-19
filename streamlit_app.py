@@ -79,8 +79,7 @@ if button2:
 
     if not history_data2.empty:
         # Afficher les données disponibles dans un format compréhensible
-        st.write(f"Données disponibles pour {entreprise2} ({ticker2}):")
-        st.write(history_data2.head())  # Affiche les premières lignes pour montrer les données
+        st.write(f"Données disponibles pour {entreprise2} ({ticker2}) en date du {user_date}:")
 
         # Convertir l'index en format 'YYYY-MM-DD' sans heure et fuseau horaire
         history_data2.index = history_data2.index.date  # Cela garde seulement la date (année-mois-jour)
