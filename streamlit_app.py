@@ -63,6 +63,7 @@ st.set_page_config(page_title="Financial Analysis", layout="wide")
 
 st.title("Analise financière")
  #ticker = st.text_input("Enter a stock ticker (e.g. TTE.PA)", "TTE.PA")
+  #ticker = st.text_input("Enter a stock ticker (e.g. TTE.PA)", "TTE.PA")
 entreprise2 = st.selectbox("choisissez l'entreprise :", df["nom"].unique(), index=6)
 button2 = st.button("Entrer")  
 
@@ -72,20 +73,21 @@ ticker2 = df[df["nom"] == entreprise]["ticker"].values[0]
 if button2: # Vue des infos de bases
     if ticker2:
         # Récupération des données historiques via yfinance
-    stock2 = yf.Ticker(ticker2)
-    history_data2 = stock2.history(period="max")  # Récupérer toutes les données disponibles
+        stock2 = yf.Ticker(ticker2)
+        history_data2 = stock2.history(period="max")  # Récupérer toutes les données disponibles
 
-    if not history_data2.empty:
+        if not history_data2.empty:
         # Extraction des dates disponibles
-        available_dates = history_data2.index.strftime("%Y-%m-%d").tolist()
+            available_dates = history_data2.index.strftime("%Y-%m-%d").tolist()
 
         # Sélection de la date
-        selected_date = st.selectbox("Choisissez une date :", available_dates)
+            selected_date = st.selectbox("Choisissez une date :", available_dates)
 
         # Affichage des informations pour la date choisie
-        if st.button("Afficher les données"):
-            selected_data = history_data2.loc[selected_date]
-            st.write(f"Données pour {selected_date} :")
-            st.dataframe(selected_data)
-    else:
-        st.error("Aucune donnée historique disponible pour cette entreprise.")
+            if st.button("Afficher les données"):
+                selected_data = history_data2.loc[selected_date]
+                st.write(f"Données pour {selected_date} :")
+                st.dataframe(selected_data)
+        else:
+            st.error("Aucune donnée historique disponible pour cette entreprise.")
+
