@@ -1,4 +1,4 @@
-
+V
 import streamlit as st
 import yfinance as yf
 import pandas as pd
@@ -55,7 +55,7 @@ Stellantis,STLAP.PA
 # Utiliser StringIO pour convertir la chaîne en un fichier-like object
 data_io = StringIO(data)
 
-# Lire les données avec Pandasd
+# Lire les données avec Pandas
 df_chart = pd.read_csv(data_io)
 
 
@@ -63,13 +63,13 @@ df_chart = pd.read_csv(data_io)
 st.set_page_config(page_title="Financial Analysis", layout="wide")
 
 st.title("Analise financière")
- #ticker = st.text_input("Enter a stock ticker (e.g. TTE.PA)", "TTE.PA")
-  #ticker = st.text_input("Enter a stock ticker (e.g. TTE.PA)", "TTE.PA")
 
+st.subheader("Vision globale")
 entreprise = st.selectbox("Choisissez l'entreprise :", df_chart["nom"].unique(), index=6, key="selectbox_1")
 period = st.selectbox("Choisissez la période :", ("1D", "5D", "1M", "6M", "YTD", "1Y", "5Y", "MAX"), index=7, key="selectbox_2")
 
 # Analyse fine avec chat gpt
+st.subheader("Analyse fine avec ChatGPT")
 current_date = datetime.now().date()
 user_date = st.text_input("Entrez une date (format: YYYY-MM-DD) :", "2024-12-09")
 button = st.button("Entrer", key="button1")  
